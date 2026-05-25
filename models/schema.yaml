@@ -1,0 +1,84 @@
+# Canonical TokenModel Schema
+# Use this as the target structure when parsing a verbal token description.
+# Mark unknown fields as `unknown` — do not omit them.
+# Required fields (marked below) must be present or flagged as an Informational finding.
+
+token:
+  name: string                   # required
+  symbol: string                 # required
+  tagline: string                # one-line description of what the protocol does
+  archetypes: []                 # required — one or more from:
+                                 #   currency, utility, governance, ve-token,
+                                 #   dual-token, rebasing, real-yield, liquid-staking, other
+  chain: string                  # e.g. Ethereum, Solana, Cosmos
+  launch_stage: string           # concept | testnet | mainnet-early | mainnet-mature
+
+supply:
+  total_supply: number           # required — use -1 for uncapped
+  uncapped: boolean              # true if no hard cap exists
+  initial_circulating: number    # tokens in circulation at launch
+  emission_schedule: string      # fixed | linear-inflation | exponential-decay |
+                                 # halving | dynamic | deflationary | none
+  emission_rate_annual_pct: number  # % of total supply emitted per year at launch
+  burn_mechanism: string         # none | transaction-fee-burn | buyback-and-burn |
+                                 # manual-governance | other
+  burn_rate_estimate: string     # qualitative or quantitative description
+
+distribution:                    # all values are percentages, must sum to 100
+  team_pct: number
+  investors_pct: number
+  ecosystem_pct: number          # grants, liquidity mining, incentives
+  community_pct: number          # airdrop, public sale, rewards
+  treasury_pct: number
+  other_pct: number
+  notes: string                  # any non-standard allocation details
+
+vesting:
+  team:
+    cliff_months: number
+    duration_months: number
+  investors:
+    cliff_months: number
+    duration_months: number
+  ecosystem:
+    cliff_months: number
+    duration_months: number
+  notes: string
+
+utility:
+  use_cases: []                  # list of utility functions, e.g.:
+                                 #   fee-payment, staking, governance, collateral,
+                                 #   access, work-token, medium-of-exchange
+  staking:
+    enabled: boolean
+    reward_source: string        # inflation | protocol-revenue | mixed | unknown
+    lock_period_days: number
+    slashing: boolean
+    unbonding_period_days: number
+  governance:
+    enabled: boolean
+    voting_mechanism: string     # token-weighted | quadratic | conviction |
+                                 # ve-token | snapshot-offchain | multisig
+    quorum_pct: number
+    timelock_days: number
+    proposal_threshold: string   # min tokens required to submit a proposal
+  fee_payment:
+    enabled: boolean
+    fee_sink: string             # burned | distributed-to-stakers | treasury | mixed
+
+economics:
+  protocol_revenue_sources: []   # list describing how the protocol earns revenue
+  value_accrual_to_token: string # how protocol revenue flows to token holders
+  demand_drivers: []             # reasons someone would want or need to hold the token
+  velocity_sinks: []             # mechanisms that lock or remove tokens from circulation
+  treasury:
+    size_usd: number             # estimated — use -1 if unknown
+    composition: string          # native-only | diversified | stablecoin-heavy | unknown
+    monthly_burn_usd: number     # estimated operational expenses per month
+
+competitive:
+  comparable_protocols: []       # list protocol names for benchmarking
+  differentiation: string        # what makes this token model distinct from comparables
+
+risks_stated_by_team: []         # risks the team has explicitly acknowledged
+additional_notes: string         # anything relevant that doesn't fit above
