@@ -84,5 +84,8 @@ competitive:
   comparable_protocols: []       # list protocol names for benchmarking
   differentiation: string        # what makes this token model distinct from comparables
 
+novel_mechanisms: []             # mechanisms that don't map to existing archetypes —
+                                 # describe in plain language; these receive narrative
+                                 # analysis rather than deterministic flag-based scoring
 risks_stated_by_team: []         # risks the team has explicitly acknowledged
 additional_notes: string         # anything relevant that doesn't fit above
