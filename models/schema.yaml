@@ -68,7 +68,11 @@ utility:
 
 economics:
   protocol_revenue_sources: []   # list describing how the protocol earns revenue
-  value_accrual_to_token: string # how protocol revenue flows to token holders
+  annual_revenue_usd: number     # annualized protocol revenue in USD — use -1 if unknown
+  fee_rate_bps: number           # primary fee rate in basis points (e.g. 30 = 0.30%) — use -1 if N/A
+  value_accrual_to_token: string # how protocol revenue flows to token holders:
+                                 #   direct-distribution | buyback-and-burn | treasury-accumulation |
+                                 #   ve-token-fees | none | mixed | unknown
   demand_drivers: []             # reasons someone would want or need to hold the token
   velocity_sinks: []             # mechanisms that lock or remove tokens from circulation
   treasury:

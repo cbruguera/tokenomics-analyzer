@@ -39,6 +39,8 @@ inflation_rate(S) ≈ 940.87 * sqrt(S) / total_supply
 ```
 At 120M ETH supply and 30M ETH staked: ~0.5% annual issuance (partially offset by EIP-1559 burns).
 
+**Post-Dencun adjustment (EIP-4844, March 2024):** Dencun introduced blob transactions, which move L2 data posting from expensive calldata to cheap, ephemeral blobs. L2s immediately shifted to blobs, sharply reducing calldata fees and therefore EIP-1559 base fee burn. Net result: ETH net issuance turned positive (inflationary) in most post-Dencun periods. As of mid-2026, with ~34M ETH staked, gross issuance is ~0.9% annually but net inflation is ~0.18–0.23% after burn — lower burn than pre-Dencun during high-activity periods, higher when L2 activity is low. When auditing protocols that benchmark against ETH's "deflationary" narrative, note this shift: ETH is not reliably deflationary post-Dencun. See `reference_benchmarks.md` for current figures.
+
 ### General Staking Equilibrium Model
 
 Let:

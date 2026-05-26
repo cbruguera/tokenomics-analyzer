@@ -34,6 +34,7 @@ Then load additional files based on features present in the parsed model:
 | Emission schedule or inflationary supply | `vetokens_and_emissions.md` |
 | Treasury described | `treasury_design.md` |
 | Utility / payment / fee token | `token_velocity.md` |
+| Real-yield or fee-sharing token | `fee_economics.md` + `token_velocity.md` + `treasury_design.md` |
 | ve-token / vote-escrow mechanics | `vetokens_and_emissions.md` + `governance_attacks.md` |
 | Algorithmic stablecoin or rebasing | `staking_dynamics.md` (+ `failure_postmortems.md` already loaded) |
 | Any 2024–2026 design patterns (leverage stablecoins, yield products) | `failure_postmortems_2024.md` |

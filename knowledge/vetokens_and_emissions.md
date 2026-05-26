@@ -196,6 +196,14 @@ At Nash equilibrium, marginal bribe = marginal emission value captured.
 
 ---
 
+## Protocol Version Notes
+
+**Curve v2 (CryptoSwap, 2021+):** Curve deployed a second AMM invariant for volatile asset pairs (e.g., ETH/BTC). The veCRV boost formula and gauge weight voting mechanics are **identical** between v1 (StableSwap) and v2 (CryptoSwap) pools — the boost applies to all gauges regardless of AMM type. What differs is the underlying AMM invariant and fee structure (v2 pools have a dynamic fee mechanism rather than a fixed swap fee).
+
+**crvUSD (May 2023):** Curve launched its own stablecoin using the LLAMMA (Lending-Liquidating AMM Algorithm). Interest revenue from crvUSD lending flows to the Curve DAO fee distributor, adding a protocol revenue stream independent of trading fees. When auditing protocols that reference Curve as a benchmark, note that crvUSD materially increased CRV's real yield characteristics.
+
+**CRV emission cut (August 2025):** CRV's annual inflation rate was reduced to ~5.02% (from higher historical levels) per the updated emission schedule. See `reference_benchmarks.md` for the current figure. When projecting Curve-derived gauge emissions, use current rates rather than the original 2020-era schedule.
+
 ## Key Sources
 
 - Curve Finance whitepaper — veCRV mechanism, boost formula, gauge weight voting (from training knowledge)

@@ -49,8 +49,23 @@ Map description language:
 - "staking rewards from our treasury" → "inflation" (treasury drawdown = inflation proxy)
 - unspecified → "unknown"
 
+### economics.annual_revenue_usd
+Extract any stated protocol revenue figure (trading fees, borrowing fees, liquidation revenue, etc.). If the description states a TVL and fee rate, estimate: `annual_revenue ≈ tvl × fee_rate × volume_to_tvl_ratio` (use 0.3 as default volume/TVL for DEXs, 0.5 for perps, 1.0 for lending). If revenue is genuinely unknown, set to -1 and flag I-05. Do not confuse "fee revenue" with "staking APY paid" — the latter is a cost, not income.
+
+### economics.fee_rate_bps
+Convert any stated fee percentage to basis points (1% = 100 bps). If multiple fee tiers exist (e.g., Uniswap 0.05/0.30/1.00%), record the primary or most-used tier. If no fee applies (pure governance token), set to -1.
+
 ### economics.value_accrual_to_token
 This is the most important field for detecting C-03 (Ponzi) and M-01 (no value accrual). Read the full description and ask: what would a rational investor hold this token for? Governance rights alone with no economic stake = no value accrual. Inflationary staking rewards = circular (you hold to earn more tokens, which dilute the value of tokens you hold).
+
+Map description language to schema values:
+- "Fees distributed directly to stakers/holders" → `direct-distribution`
+- "Protocol buys back and burns tokens" → `buyback-and-burn`
+- "Fees go to the treasury" → `treasury-accumulation`
+- "veToken holders receive trading fees" → `ve-token-fees`
+- "No fee mechanism" or governance-only → `none`
+- Combination of above → `mixed`
+- Unclear → `unknown`
 
 ### token.archetypes — upgrade triggers
 Always check for these combos even if not explicit:

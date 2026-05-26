@@ -22,6 +22,7 @@
 | `failure_postmortems_2024.md` | Post-2024 incidents: Stream Finance/xUSD (Nov 2025), Compound governance capture (Jul 2024), token-treasury dependency collapse (2024–2026). New formulas, warning signs, prevention. Refresh every 6 months via `/update-knowledge incidents`. |
 | `url_corrections.md` | Verified status of all URLs cited in knowledge files as of 2026-05-25. Re-verify via `/update-knowledge urls`. |
 | `academic_citations.md` | Verified citations: Roughgarden EIP-1559, Ethereum consensus spec, Buterin governance posts, Samani token models, Pfeffer cryptoassets, flash loan governance paper. |
+| `fee_economics.md` | Revenue taxonomy, Fee Coverage Ratio (FCR) formula, unit economics benchmarks (revenue/TVL, P/F ratio), value accrual mechanism patterns, fee distribution design patterns (GMX/Curve/MakerDAO), sustainability thresholds, and red flag patterns for fee-based tokens. |
 | `worked_example.md` | **Quality calibration anchor.** Complete fictional audit (AgroFi/AGRO) with parsed YAML, all findings with evidence, death spiral count, grade assignment, executive summary. Load before writing any report. |
 
 ---
@@ -38,7 +39,7 @@
 | Utility / payment / fee token | `token_velocity.md` |
 | ve-token / vote-escrow mechanics | `vetokens_and_emissions.md` + `governance_attacks.md` |
 | Algorithmic stablecoin or rebasing token | `staking_dynamics.md` (postmortems already loaded) |
-| Real-yield / fee-sharing token | `token_velocity.md` + `treasury_design.md` |
+| Real-yield / fee-sharing token | `token_velocity.md` + `treasury_design.md` + `fee_economics.md` |
 | Liquid staking token | `staking_dynamics.md` + `token_velocity.md` |
 | 2024–2026 design patterns (yield products, leverage stablecoins) | `failure_postmortems_2024.md` |
 | Running simulations (Step 5) | `simulation_baselines.md` |

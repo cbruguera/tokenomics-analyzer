@@ -159,7 +159,7 @@ Cliff_Release = Grant_Total × Cliff_Pct  at  t = t_cliff
 
 ## Key Sources
 
-- MakerDAO Surplus Buffer MIP (MIP84, MIP65): https://forum.makerdao.com/t/mip84-activate-protocol-owned-vault-emulation/17713 ; https://makerburn.com/#/
+- MakerDAO Surplus Buffer MIP (MIP84, MIP65 — 2022–2023 era): https://forum.makerdao.com/t/mip84-activate-protocol-owned-vault-emulation/17713 ; https://makerburn.com/#/ — Note: MakerDAO rebranded as Sky Protocol in August 2024 under the "Endgame" plan; MIP84/MIP65 were superseded by the Endgame governance framework (MIP104+). Historical mechanics remain relevant; verify current operational status against Sky Protocol docs.
 - Olympus DAO documentation and bonding mechanics: https://docs.olympusdao.finance/main/overview/intro ; https://olympusdao.medium.com/introducing-olympus-pro-d8db3052fca5
 - Tokemak documentation (reactors, liquidity direction): https://docs.tokemak.xyz/
 - SushiSwap 0xMaki treasury incident: https://www.coindesk.com/markets/2020/09/11/sushiswap-drama-everything-you-need-to-know/ ; https://forum.sushi.com/t/re-addressing-the-treasury/1936

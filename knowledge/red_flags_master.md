@@ -63,7 +63,7 @@ Severity determines the grade impact per `scoring_rubric.md`.
 
 | # | Check | Trigger Condition | YAML Fields to Inspect |
 |---|---|---|---|
-| M-01 | Governance token no value accrual | Governance token with no fee capture, no buyback, no burn, no yield | `token.archetypes`, `economics.value_accrual_to_token`, `utility.fee_payment.fee_sink` |
+| M-01 | Governance token no value accrual | Governance token with no fee capture, no buyback, no burn, no yield | `token.archetypes`, `economics.value_accrual_to_token`, `economics.annual_revenue_usd`, `utility.fee_payment.fee_sink` |
 | M-02 | Elevated insider allocation | Team + investor allocation 30–40% of total supply | `distribution.team_pct`, `distribution.investors_pct` |
 | M-03 | Majority inflationary staking | Staking yield 50–99% from inflation, <50% from protocol revenue | `utility.staking.reward_source`, `economics.protocol_revenue_sources` |
 | M-04 | Unbounded supply | No defined terminal supply or hard cap | `supply.uncapped`, `supply.emission_schedule` |
@@ -73,7 +73,7 @@ Severity determines the grade impact per `scoring_rubric.md`.
 | M-08 | No governance delegation | No delegation mechanism in token-weighted governance | `utility.governance.voting_mechanism`, `additional_notes` |
 | M-09 | Validator/LP cartel risk | Top-3 validators or stakers control >50% of stake/voting weight | `distribution.*`, `additional_notes` |
 | M-10 | Low governance timelock | Governance timelock 24–48 hours (present but low) | `utility.governance.timelock_days` |
-| M-11 | Single revenue dependency | 100% of protocol revenue from a single product or chain | `economics.protocol_revenue_sources` |
+| M-11 | Single revenue dependency | 100% of protocol revenue from a single product or chain | `economics.protocol_revenue_sources`, `economics.annual_revenue_usd` |
 | M-12 | Reserve-subsidized yield | 20–50% of yield funded by reserve drawdown | `utility.staking.reward_source`, `economics.treasury.size_usd` |
 | M-13 | No on-chain treasury visibility | Treasury not readable on-chain; no public dashboard | `economics.treasury.composition`, `additional_notes` |
 | M-14 | Bribe market at thin TVL | veToken bribe market at TVL <$100M with <3 competing protocols | `token.archetypes`, `economics.treasury.size_usd`, `additional_notes` |
@@ -125,4 +125,4 @@ Severity determines the grade impact per `scoring_rubric.md`.
 | Governance | C-05, H-07, H-08, M-08, M-09 | `governance_attacks.md` |
 | Treasury | H-05, H-06, M-07, M-13 | `treasury_design.md` |
 | Vesting & distribution | C-02, H-01, H-02, H-03, M-02 | `token_archetypes.md` |
-| Value accrual | C-03, C-07, M-01, M-11 | `token_velocity.md`, `token_archetypes.md` |
+| Value accrual | C-03, C-07, M-01, M-11 | `token_velocity.md`, `token_archetypes.md`, `fee_economics.md` |
