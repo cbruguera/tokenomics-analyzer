@@ -16,37 +16,45 @@ Read the input and extract everything that can be mapped to the six universal qu
 
 ### Step 2 — Score each question
 
-Score each of the six universal questions on a 0–100% scale based on how completely it is answered. Use the criteria below.
+Score each question in **25% increments** (0%, 25%, 50%, 75%, 100%) based on how completely the input answers it. Apply judgment — the goal is to accurately reflect whether the auditor has enough information to assess that dimension of the model. For each question, briefly note what is present and what is missing.
+
+The sub-criteria below are a reference for what to check, not a mechanical formula. A novel token that answers a question clearly in prose may score higher than one that fills specific fields but leaves the underlying question vague.
 
 **Q1: Who gets the tokens and when?** *(distribution + vesting)*
-- 100%: Team, investor, ecosystem, community, treasury allocations all stated as %; vesting cliff and duration known for team and investors
-- 50%: Allocations stated but vesting unknown, or vesting stated but allocations vague
-- 0%: No distribution information
+- Are all major allocation categories identified with approximate %? (team, investors, community, ecosystem, treasury)
+- Is the total insider % calculable?
+- Are team vesting terms stated (cliff + duration)?
+- Are investor vesting terms stated?
 
 **Q2: What is the total supply trajectory?** *(emission + burn)*
-- 100%: Total supply (or uncapped confirmation), emission schedule type, annual emission rate, and burn mechanism all stated
-- 50%: Total supply known but emission rate or schedule type missing
-- 0%: No supply information
+- Is total supply stated, or explicitly confirmed as uncapped?
+- Is the emission schedule type and rate described?
+- Is a burn mechanism described, or explicitly absent?
+- Is the resulting circulating supply curve inferable over time?
 
 **Q3: Why would anyone hold this token?** *(utility + demand drivers)*
-- 100%: Primary use cases stated, staking mechanics described (if present), demand drivers beyond speculation identified
-- 50%: Use cases listed but mechanics vague, or single use case with no staking detail
-- 0%: No utility described beyond "governance" or "ecosystem"
+- Is at least one concrete use case described beyond governance or speculation?
+- Is the token required (not optional) for a protocol function, or is the optional nature intentional and explained?
+- If staking exists, is the reward source identified (emissions / protocol revenue / mixed)?
+- Is there a demand driver tied to protocol growth or usage?
 
 **Q4: How does the protocol generate value, and who captures it?** *(revenue + value accrual)*
-- 100%: Revenue sources identified, fee rate or revenue estimate provided, mechanism by which revenue reaches token holders described
-- 50%: Revenue sources named but no rate or accrual mechanism
-- 0%: No revenue model described, or "future revenue" with no mechanism
+- Are revenue sources identified?
+- Is a fee rate or revenue estimate provided?
+- Is the mechanism by which value reaches token holders described?
+- Is it clear whether staking yield is real (exogenous revenue) or inflationary (token emissions)?
 
 **Q5: Who governs the system, and with what checks?** *(governance)*
-- 100%: Voting mechanism, quorum %, timelock duration, and proposal threshold all stated
-- 50%: Governance exists but timelock or quorum unknown
-- 0%: No governance described
+- Is the voting mechanism described?
+- Are quorum and proposal threshold stated?
+- Is the timelock duration stated, including explicitly "no timelock"?
+- Are there any safeguards against governance attacks described?
 
 **Q6: What resources does the protocol have to survive adversity?** *(treasury + runway)*
-- 100%: Treasury size, composition (% stablecoins vs. native), and monthly burn rate all known
-- 50%: Treasury mentioned but size or composition unknown
-- 0%: No treasury information
+- Is treasury size stated or estimable?
+- Is treasury composition known (stablecoin vs. native token %)?
+- Is monthly burn rate stated?
+- Is there a plan for treasury sustainability under bear conditions?
 
 ### Step 3 — Output the scorecard
 
@@ -65,7 +73,7 @@ Overall: XX% complete
 [READY FOR AUDIT / GAPS SHOULD BE ADDRESSED BEFORE FULL AUDIT]
 ```
 
-Mark questions below 50% as CRITICAL gaps. Mark questions 50–79% as SIGNIFICANT gaps. Mark 80–99% as MINOR gaps.
+Mark questions at 0–25% as CRITICAL gaps. Mark 50% as SIGNIFICANT. Mark 75% as MINOR. 100% = complete.
 
 Use █ for filled, ░ for missing, e.g. `████████░░  80%`
 

@@ -76,16 +76,40 @@ Always check for these combos even if not explicit:
 
 ---
 
-## Clarifying Questions Protocol
+## Completeness Framework
 
-Ask clarifying questions in one batch, before parsing, when ANY of these fields are missing:
-1. Investor vesting schedule (cliff + duration)
-2. Treasury composition (% stablecoins vs. native)
-3. Governance timelock duration
-4. Staking reward source split (% from emissions vs. fees)
-5. Whether a stablecoin in the system uses the native token as collateral
+Every token model must answer the **six universal questions** regardless of archetype or novelty. Completeness is assessed per question — a novel token that answers all six clearly in prose is more complete than a standard token with many fields filled but question 4 left vague.
 
-Do not proceed without at least attempting to gather these. If the user says "proceed with what you have," set unknown fields and create I-05 findings.
+### The Six Universal Questions and Their Schema Coverage
+
+| # | Question | Key schema fields |
+|---|---|---|
+| Q1 | **Who gets the tokens and when?** *(distribution + vesting)* | `distribution.*_pct`, `vesting.*.cliff_months`, `vesting.*.duration_months` |
+| Q2 | **What is the total supply trajectory?** *(emission + burn)* | `supply.total`, `supply.emission_rate_annual_pct`, `supply.emission_schedule_type`, `supply.burn_mechanism` |
+| Q3 | **Why would anyone hold this token?** *(utility + demand drivers)* | `utility.use_cases`, `utility.staking.*`, `token.archetypes` |
+| Q4 | **How does the protocol generate value, and who captures it?** *(revenue + value accrual)* | `economics.annual_revenue_usd`, `economics.fee_rate_bps`, `economics.value_accrual_to_token` |
+| Q5 | **Who governs the system, and with what checks?** *(governance)* | `governance.mechanism`, `governance.quorum_pct`, `governance.timelock_hours`, `governance.proposal_threshold` |
+| Q6 | **What resources does the protocol have to survive adversity?** *(treasury + runway)* | `economics.treasury.usd_value`, `economics.treasury.stablecoin_pct`, `economics.treasury.monthly_burn_usd` |
+
+### Scoring
+
+Use the 4-item sub-criteria defined in the `/assess-model` command (Step 2) — that file is the authoritative scoring reference. Each item is worth 25%; possible scores per question are 0%, 25%, 50%, 75%, 100%. Do not interpolate.
+
+### Gap Question Generation
+
+After scoring, identify gaps and generate targeted questions ordered by audit-criticality:
+
+**Priority order for gap questions:**
+1. Q4 Revenue & Value Accrual gaps (feed C-03, M-01 — most commonly missed, highest audit impact)
+2. Q2 Supply Trajectory gaps (feed C-06, C-07 — emission unknowns block simulation)
+3. Q1 Distribution & Vesting gaps (feed C-02, H-01 — insider lockup unknowns block critical checks)
+4. Q3 Demand & Utility gaps (feed M-01, M-02)
+5. Q6 Treasury & Runway gaps (feed H-05, H-06)
+6. Q5 Governance gaps (feed C-05, H-07)
+
+Ask at most 5 gap questions in one batch. If more than 5 gaps exist, prioritize the highest-criticality ones and note that additional gaps will be recorded as I-05 findings.
+
+If the user says "proceed with what you have": set all unknown fields, create I-05 findings for each gap, and continue without waiting for answers.
 
 ---
 
