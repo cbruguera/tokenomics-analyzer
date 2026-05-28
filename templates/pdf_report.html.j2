@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+
+/* ─── Page layout ─────────────────────────────────────────── */
+
+@page {
+  size: A4;
+  margin: 28mm 22mm 24mm 22mm;
+
+  @top-left {
+    content: "◆  AURIC LABS";
+    font-family: Arial, sans-serif;
+    font-size: 8pt;
+    font-weight: 700;
+    color: #C9A447;
+    letter-spacing: 0.15em;
+    vertical-align: bottom;
+    padding-bottom: 4pt;
+    border-bottom: 0.5pt solid #e5e7eb;
+  }
+  @top-right {
+    content: "{{ token_name }} ({{ token_symbol }})";
+    font-family: Arial, sans-serif;
+    font-size: 8pt;
+    color: #9ca3af;
+    vertical-align: bottom;
+    padding-bottom: 4pt;
+    border-bottom: 0.5pt solid #e5e7eb;
+  }
+  @bottom-center {
+    content: counter(page);
+    font-family: Arial, sans-serif;
+    font-size: 8pt;
+    color: #9ca3af;
+  }
+  @bottom-left {
+    content: "Confidential — Auric Labs Token Economics Audit";
+    font-family: Arial, sans-serif;
+    font-size: 7pt;
+    color: #d1d5db;
+  }
+}
+
+@page cover {
+  margin: 0;
+  @top-left    { content: none; border: none; }
+  @top-right   { content: none; border: none; }
+  @top-center  { content: none; }
+  @bottom-center { content: none; }
+  @bottom-left   { content: none; }
+}
+
+
+/* ─── Cover page ──────────────────────────────────────────── */
+
+.cover {
+  page: cover;
+  page-break-after: always;
+  background-color: #0f1629;
+  width: 210mm;
+  min-height: 297mm;
+  box-sizing: border-box;
+  padding: 38mm 32mm 24mm 32mm;
+}
+
+.cover-brand {
+  color: #C9A447;
+  font-family: Arial, sans-serif;
+  font-size: 11pt;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 52mm;
+}
+
+.cover-token-name {
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  font-size: 28pt;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 6pt;
+}
+
+.cover-subtitle {
+  color: #6b7280;
+  font-family: Arial, sans-serif;
+  font-size: 11pt;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 22mm;
+}
+
+.cover-grade-circle {
+  display: inline-block;
+  width: 28mm;
+  height: 28mm;
+  line-height: 28mm;
+  border-radius: 50%;
+  background-color: {{ grade_color }};
+  text-align: center;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  font-size: 24pt;
+  font-weight: 900;
+}
+
+.cover-grade-label {
+  display: block;
+  color: #4b5563;
+  font-family: Arial, sans-serif;
+  font-size: 8pt;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-top: 4mm;
+  margin-bottom: 28mm;
+}
+
+.cover-date {
+  color: #4b5563;
+  font-family: Arial, sans-serif;
+  font-size: 9.5pt;
+}
+
+.cover-confidential {
+  color: #374151;
+  font-family: Arial, sans-serif;
+  font-size: 8.5pt;
+  margin-top: 3mm;
+}
+
+
+/* ─── Body typography ─────────────────────────────────────── */
+
+body {
+  font-family: Arial, sans-serif;
+  font-size: 10pt;
+  line-height: 1.65;
+  color: #1f2937;
+}
+
+h1 {
+  font-size: 16pt;
+  font-weight: 700;
+  color: #0f1629;
+  border-bottom: 1.5pt solid #C9A447;
+  padding-bottom: 5pt;
+  margin-top: 0;
+  margin-bottom: 14pt;
+  page-break-after: avoid;
+}
+
+h2 {
+  font-size: 13pt;
+  font-weight: 700;
+  color: #0f1629;
+  border-left: 3pt solid #C9A447;
+  padding-left: 9pt;
+  margin-top: 2.2em;
+  margin-bottom: 0.5em;
+  page-break-after: avoid;
+}
+
+h3 {
+  font-size: 10.5pt;
+  font-weight: 600;
+  color: #1f2937;
+  margin-top: 1.4em;
+  margin-bottom: 0.4em;
+  page-break-after: avoid;
+}
+
+h4 {
+  font-size: 10pt;
+  font-weight: 600;
+  color: #374151;
+  margin-top: 1em;
+  margin-bottom: 0.3em;
+}
+
+p { margin-top: 0.35em; margin-bottom: 0.55em; }
+
+strong { font-weight: 700; color: #111827; }
+
+em { font-style: italic; color: #374151; }
+
+ul, ol {
+  padding-left: 1.4em;
+  margin: 0.4em 0 0.7em;
+}
+li { margin-bottom: 0.25em; }
+
+
+/* ─── Tables ──────────────────────────────────────────────── */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9.5pt;
+  margin: 1em 0 1.4em;
+  page-break-inside: avoid;
+}
+th {
+  background-color: #0f1629;
+  color: #ffffff;
+  font-weight: 700;
+  padding: 6pt 9pt;
+  text-align: left;
+  font-size: 8.5pt;
+  letter-spacing: 0.04em;
+}
+td {
+  padding: 5pt 9pt;
+  border-bottom: 0.5pt solid #e5e7eb;
+  vertical-align: top;
+}
+tr:nth-child(even) td { background-color: #f9fafb; }
+
+
+/* ─── Code ────────────────────────────────────────────────── */
+
+code {
+  background: #f3f4f6;
+  padding: 1pt 4pt;
+  border-radius: 2pt;
+  font-size: 8.5pt;
+  font-family: 'Courier New', Courier, monospace;
+  color: #1f2937;
+}
+pre {
+  background: #f3f4f6;
+  border-left: 3pt solid #e5e7eb;
+  padding: 10pt 12pt;
+  border-radius: 3pt;
+  font-size: 8pt;
+  line-height: 1.55;
+  margin: 0.8em 0 1.2em;
+  white-space: pre-wrap;
+}
+pre code {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+}
+
+
+/* ─── Images ──────────────────────────────────────────────── */
+
+img {
+  max-width: 100%;
+  height: auto;
+  margin: 0.8em 0 1.2em;
+  border-radius: 3pt;
+}
+
+
+/* ─── Misc ────────────────────────────────────────────────── */
+
+hr {
+  border: none;
+  border-top: 0.5pt solid #e5e7eb;
+  margin: 1.6em 0;
+}
+
+blockquote {
+  border-left: 3pt solid #C9A447;
+  margin-left: 0;
+  padding-left: 12pt;
+  color: #4b5563;
+  font-style: italic;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ▓▓▓ COVER PAGE ▓▓▓ -->
+<div class="cover">
+  <div class="cover-brand">◆&nbsp;&nbsp;Auric Labs</div>
+  <div class="cover-token-name">{{ token_name }}</div>
+  <div class="cover-subtitle">Token Economics Audit</div>
+  <div class="cover-grade-circle">{{ grade }}</div>
+  <span class="cover-grade-label">Audit Grade</span>
+  <div class="cover-date">{{ audit_date }}</div>
+  <div class="cover-confidential">Confidential</div>
+</div>
+
+<!-- ▓▓▓ REPORT CONTENT ▓▓▓ -->
+<div>
+{{ content }}
+</div>
+
+</body>
+</html>

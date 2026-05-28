@@ -102,6 +102,12 @@ The report must go beyond listing findings. It must also deliver:
 - **Sustainability requirements** — concrete, measurable milestones the protocol needs to hit to stay within a viable range
 - **Optimization roadmap** — not just "fix these findings" but what design changes most improve long-term viability
 
+After saving the markdown report, generate the PDF deliverable:
+```
+python templates/generate_pdf.py <token-name>
+```
+This produces `reports/<token-name>_audit.pdf` — the formatted Auric Labs report with cover page, severity-styled findings, and embedded simulation charts. Both the `.md` and `.pdf` are final outputs.
+
 ---
 
 ## Severity Rubric
@@ -138,7 +144,8 @@ The executive summary must state the grade and justify it in one sentence refere
 | Simulation scripts | `simulations/<token-name>/` |
 | Simulation outputs (CSV, charts) | `analysis/<token-name>/` |
 | Excel model | `analysis/<token-name>/<token-name>_model.xlsx` |
-| Final report | `reports/<token-name>_audit.md` |
+| Final report (markdown) | `reports/<token-name>_audit.md` |
+| Final report (PDF) | `reports/<token-name>_audit.pdf` |
 
 Use lowercase hyphenated names throughout. Example: `models/nova-protocol.yaml`, `reports/nova-protocol_audit.md`.
 
@@ -162,4 +169,4 @@ This is the runtime analyzer context. For agent maintenance (adding components, 
 
 ## Stack
 
-Python (installed): numpy, pandas, matplotlib, scipy, openpyxl, pyyaml
+Python (installed): numpy, pandas, matplotlib, scipy, openpyxl, pyyaml, markdown, jinja2, weasyprint
