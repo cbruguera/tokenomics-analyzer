@@ -20,32 +20,6 @@ This is a Claude Code agent that does exactly that. Submit your token model in a
 
 ---
 
-## Sample outputs
-
-### Supply dynamics and vesting schedule
-
-![Supply dynamics](docs/example_supply.png)
-
-Supply composition over time with vesting cliff markers, showing freely circulating vs. locked supply and Base / Bear / Stress scenario comparison.
-
----
-
-### Monte Carlo price simulation — 1,000 paths
-
-![Monte Carlo simulation](docs/example_monte_carlo.png)
-
-Price bands (P10–P90) across Base, Bear, and Stress scenarios over a 9-year horizon, surfacing dilution risk and emission-driven sell pressure windows.
-
----
-
-### Viable operating region
-
-![Equilibrium map](docs/example_equilibrium.png)
-
-Parameter space maps showing which combinations of design parameters keep the system stable (green) vs. drive it toward collapse (red). Used to derive concrete sustainability thresholds.
-
----
-
 ## How it reasons
 
 The analysis draws simultaneously from seven frameworks:
@@ -62,18 +36,54 @@ Findings, grades, and fix proposals are outputs of this analysis — not a check
 
 ---
 
-## The 51-flag scanner
+## Knowledge base
 
-The weakness scan covers 8 Critical, 14 High, 14 Medium, 10 Low, and 5 Informational checks. Every flag maps to a specific TokenModel YAML field and a threshold derived from real protocol failures:
+The agent loads domain knowledge selectively based on your token's features:
 
-| Category | Example flags |
+| File | Covers |
 |---|---|
-| Supply | Endogenous collateral, uncapped supply without sink, emission front-load >10× circulating |
-| Concentration | Insider allocation >40%, team cliff <12 months, single-key treasury |
-| Incentives | Subsidized yield >15% APY without revenue backing, reflexive staking loops |
-| Governance | No timelock, flash loan susceptibility, quorum below whale threshold |
-| Treasury | Stablecoin runway <12 months, >80% native token exposure |
-| Death spiral | 10-condition checklist derived from Terra/LUNA, Iron Finance, OHM, Anchor, Basis Cash |
+| `token_archetypes.md` | 7 archetypes with classification decision tree and failure patterns |
+| `failure_postmortems.md` | Terra/LUNA, Iron Finance, OHM, Anchor, Basis Cash; 10-condition death spiral checklist |
+| `failure_postmortems_2024.md` | Stream Finance/xUSD, Compound governance capture, leverage stablecoin patterns |
+| `staking_dynamics.md` | Issuance formulas, reflexivity loop, staking equilibrium model |
+| `governance_attacks.md` | Beanstalk, Tornado Cash, Build Finance; 22-item governance attack checklist |
+| `vetokens_and_emissions.md` | veCRV mechanics, Solidly failure, emission decay curves, bribe market dynamics |
+| `treasury_design.md` | Runway formula, diversification benchmarks, protocol-owned liquidity |
+| `fee_economics.md` | Fee capture ratio, revenue taxonomy, unit economics benchmarks |
+| `token_velocity.md` | MV=PQ framework, velocity trap, sink mechanism effectiveness |
+| `reference_benchmarks.md` | Live comparison data: BTC / ETH / UNI / CRV / GMX / stETH |
+
+---
+
+## Sample outputs
+
+### Supply dynamics and vesting schedule
+
+<p align="center">
+  <img src="docs/example_supply.png" width="680">
+</p>
+
+Supply composition over time with vesting cliff markers, showing freely circulating vs. locked supply and Base / Bear / Stress scenario comparison.
+
+---
+
+### Monte Carlo price simulation — 1,000 paths
+
+<p align="center">
+  <img src="docs/example_monte_carlo.png" width="680">
+</p>
+
+Price bands (P10–P90) across Base, Bear, and Stress scenarios over a 9-year horizon, surfacing dilution risk and emission-driven sell pressure windows.
+
+---
+
+### Viable operating region
+
+<p align="center">
+  <img src="docs/example_equilibrium.png" width="580">
+</p>
+
+Parameter space maps showing which combinations of design parameters keep the system stable (green) vs. drive it toward collapse (red). Used to derive concrete sustainability thresholds.
 
 ---
 
@@ -113,25 +123,6 @@ Outputs are saved to:
 | Charts and CSVs | `analysis/<token-name>/` |
 | Report (markdown) | `reports/<token-name>_audit.md` |
 | Report (PDF) | `reports/<token-name>_audit.pdf` |
-
----
-
-## Knowledge base
-
-The agent loads domain knowledge selectively based on your token's features:
-
-| File | Covers |
-|---|---|
-| `token_archetypes.md` | 7 archetypes with classification decision tree and failure patterns |
-| `failure_postmortems.md` | Terra/LUNA, Iron Finance, OHM, Anchor, Basis Cash; 10-condition death spiral checklist |
-| `failure_postmortems_2024.md` | Stream Finance/xUSD, Compound governance capture, leverage stablecoin patterns |
-| `staking_dynamics.md` | Issuance formulas, reflexivity loop, staking equilibrium model |
-| `governance_attacks.md` | Beanstalk, Tornado Cash, Build Finance; 22-item governance attack checklist |
-| `vetokens_and_emissions.md` | veCRV mechanics, Solidly failure, emission decay curves, bribe market dynamics |
-| `treasury_design.md` | Runway formula, diversification benchmarks, protocol-owned liquidity |
-| `fee_economics.md` | Fee capture ratio, revenue taxonomy, unit economics benchmarks |
-| `token_velocity.md` | MV=PQ framework, velocity trap, sink mechanism effectiveness |
-| `reference_benchmarks.md` | Live comparison data: BTC / ETH / UNI / CRV / GMX / stETH |
 
 ---
 
