@@ -1,51 +1,107 @@
 # Tokenomics Analyzer
 
-A Claude Code agent for rigorous token economic systems analysis. Given any description of a token model — verbal, structured, or partial — it produces a comprehensive audit: parsed model, severity-rated findings, simulations, Excel financial model, and a written report with fix proposals.
+**Systematic token economic analysis. 51 risk checks, quantitative simulations, concrete fix proposals.**
+
+Most token models fail in predictable ways: emission shocks, death spirals, insider concentration, governance capture, treasury collapse. The patterns are well-documented. What's rare is finding them rigorously — before launch, with enough specificity to actually fix them.
+
+This is a Claude Code agent that does exactly that. Submit your token model in any format and it runs a structured 7-step analysis: parsing, archetype classification, weakness scanning, quantitative simulation, and a full written report with grade and fix proposals.
 
 ---
 
-## What it produces
+## What you get
 
-- **Completeness scorecard** — assesses input against 6 universal questions before analysis begins; surfaces gaps and asks targeted follow-up questions
-- **Parsed TokenModel** — structured YAML extracted from any verbal description
-- **Weakness scan** — 51 flags across 5 severity levels (Critical / High / Medium / Low / Informational); every Critical and High finding includes a specific, implementable fix proposal
-- **Simulations** — cadCAD-style supply curves, Monte Carlo price bands, parameter sensitivity heatmaps, death spiral stress tests, staking reflexivity analysis, multi-actor behavioral dynamics, governance participation modeling, and adoption curve analysis
-- **Excel financial model** — supply schedule, vesting unlocks, treasury runway, and revenue projections across Base / Bear / Stress scenarios
-- **Audit report** — A–F grade with justification, system dynamics analysis, equilibrium conditions, viable operating region, sustainability requirements, and optimization roadmap
+| Deliverable | Description |
+|---|---|
+| **Parsed TokenModel** | Your model converted to structured YAML — a precise representation of every supply, vesting, governance, and treasury parameter |
+| **Completeness scorecard** | Gap assessment before analysis begins; targeted follow-up questions for anything missing |
+| **Weakness scan** | 51 checks across 5 severity levels, grounded in real failure postmortems; every Critical and High finding includes a specific, implementable fix proposal |
+| **Simulations** | Supply curves, Monte Carlo price bands (1,000 paths), parameter sensitivity heatmaps, death spiral stress tests, viable operating region maps |
+| **Written report** | A–F grade with justification, system dynamics analysis, equilibrium conditions, sustainability requirements, and optimization roadmap |
 
 ---
 
-## Prerequisites
+## Sample outputs
 
-- [Claude Code](https://claude.ai/code)
-- Python 3.10+
+### Supply dynamics and vesting schedule
+
+![Supply dynamics](docs/example_supply.png)
+
+Supply composition over time with vesting cliff markers, showing freely circulating vs. locked supply and Base / Bear / Stress scenario comparison.
+
+---
+
+### Monte Carlo price simulation — 1,000 paths
+
+![Monte Carlo simulation](docs/example_monte_carlo.png)
+
+Price bands (P10–P90) across Base, Bear, and Stress scenarios over a 9-year horizon, surfacing dilution risk and emission-driven sell pressure windows.
+
+---
+
+### Viable operating region
+
+![Equilibrium map](docs/example_equilibrium.png)
+
+Parameter space maps showing which combinations of design parameters keep the system stable (green) vs. drive it toward collapse (red). Used to derive concrete sustainability thresholds.
+
+---
+
+## How it reasons
+
+The analysis draws simultaneously from seven frameworks:
+
+- **Mechanism design** — are the incentives actually compatible across all participant types?
+- **Evolutionary game theory** — are the equilibria stable under adversarial pressure?
+- **Complex systems science** — where are the phase transitions and tipping points?
+- **Institutional economics** — does the governance design meet Ostrom's criteria for sustainable commons?
+- **Platform economics** — how do network effects and bootstrapping dynamics interact with token incentives?
+- **Monetary theory** — what are the seigniorage dynamics and monetary policy analogs?
+- **Financial economics** — what are the embedded options and stochastic supply dynamics?
+
+Findings, grades, and fix proposals are outputs of this analysis — not a checklist applied mechanically.
+
+---
+
+## The 51-flag scanner
+
+The weakness scan covers 8 Critical, 14 High, 14 Medium, 10 Low, and 5 Informational checks. Every flag maps to a specific TokenModel YAML field and a threshold derived from real protocol failures:
+
+| Category | Example flags |
+|---|---|
+| Supply | Endogenous collateral, uncapped supply without sink, emission front-load >10× circulating |
+| Concentration | Insider allocation >40%, team cliff <12 months, single-key treasury |
+| Incentives | Subsidized yield >15% APY without revenue backing, reflexive staking loops |
+| Governance | No timelock, flash loan susceptibility, quorum below whale threshold |
+| Treasury | Stablecoin runway <12 months, >80% native token exposure |
+| Death spiral | 10-condition checklist derived from Terra/LUNA, Iron Finance, OHM, Anchor, Basis Cash |
+
+---
+
+## How to submit your model
+
+See [`SUBMISSION_GUIDE.md`](SUBMISSION_GUIDE.md) — any format is accepted (prose, bullet points, whitepaper section, spreadsheet). No form to fill out.
+
+---
+
+## Running the analyzer
+
+**Prerequisites:** [Claude Code](https://claude.ai/code) and Python 3.10+
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
-
-## Usage
-
-Open a Claude Code session in this directory:
-
-```bash
-claude
-```
-
-Then use the slash commands:
+Open a Claude Code session in this directory and use the slash commands:
 
 ```
-/audit "describe your token here"          # full pipeline: parse → scan → simulate → report
-/audit models/my-token.yaml               # same, starting from an existing model file
+/audit path/to/your-token-model.md     # full pipeline: parse → scan → simulate → report
+/audit "describe your token here"      # same, from a verbal description
 
-/assess-model "describe your token here"   # completeness check only — scorecard + gap questions
-/parse-model "describe your token here"    # parse to structured YAML, no full audit
-
-/simulate models/my-token.yaml            # run simulations for an existing model
-/stress-test models/my-token.yaml         # adversarial scenarios: bear market, whale exit, revenue collapse
-/benchmark models/my-token.yaml           # comparison table against comparable protocols
+/assess-model "..."                    # completeness check only — scorecard + gap questions
+/parse-model "..."                     # parse to structured YAML, no full audit
+/simulate models/my-token.yaml        # run simulations for an existing parsed model
+/stress-test models/my-token.yaml     # adversarial scenarios: bear market, whale exit, revenue collapse
+/benchmark models/my-token.yaml       # comparison table against comparable protocols
 ```
 
 Outputs are saved to:
@@ -53,46 +109,29 @@ Outputs are saved to:
 | Artifact | Location |
 |---|---|
 | Parsed model | `models/<token-name>.yaml` |
-| Simulation scripts | `simulations/<token-name>/` |
+| Scan trace | `analysis/<token-name>/scan_trace.md` |
 | Charts and CSVs | `analysis/<token-name>/` |
-| Excel model | `analysis/<token-name>/<token-name>_model.xlsx` |
-| Audit report | `reports/<token-name>_audit.md` |
+| Report (markdown) | `reports/<token-name>_audit.md` |
+| Report (PDF) | `reports/<token-name>_audit.pdf` |
 
 ---
 
-## Repository structure
+## Knowledge base
 
-```
-models/         ← TokenModel YAML files + schema.yaml
-knowledge/      ← domain knowledge base (selectively loaded per token features)
-simulations/    ← simulation scripts (generated per audit)
-analysis/       ← outputs: charts, CSVs, Excel models
-reports/        ← final audit reports
-templates/      ← report skeleton
-requirements.txt
-```
-
----
-
-## Domain knowledge base
+The agent loads domain knowledge selectively based on your token's features:
 
 | File | Covers |
 |---|---|
 | `token_archetypes.md` | 7 archetypes with classification decision tree and failure patterns |
 | `failure_postmortems.md` | Terra/LUNA, Iron Finance, OHM, Anchor, Basis Cash; 10-condition death spiral checklist |
-| `failure_postmortems_2024.md` | Stream Finance/xUSD, Compound governance capture, 2024–2026 design patterns |
-| `staking_dynamics.md` | Ethereum issuance formula (post-Dencun), reflexivity loop, equilibrium model |
-| `governance_attacks.md` | Beanstalk flash loan, Tornado Cash, Build Finance; 22-item governance checklist |
-| `vetokens_and_emissions.md` | veCRV boost formula, Solidly failure, Velodrome fixes, emission decay curves |
-| `treasury_design.md` | Runway formula, diversification benchmarks, POL mechanics |
-| `fee_economics.md` | FCR formula, revenue taxonomy, unit economics benchmarks, value accrual patterns |
-| `token_velocity.md` | MV=PQ framework, velocity trap, sink mechanism effectiveness table |
-| `scoring_rubric.md` | Grade A–F thresholds, F disqualifiers, scoring process |
-| `red_flags_master.md` | 51 flags (8 Critical / 14 High / 14 Medium / 10 Low / 5 Informational) |
-| `simulation_baselines.md` | Default simulation parameters, 5 scenarios, Monte Carlo config |
-| `reference_benchmarks.md` | Live data: BTC / ETH / UNI / CRV / GMX / stETH |
-| `worked_example.md` | Complete fictional audit (AgroFi/AGRO) as quality calibration anchor |
-| `academic_citations.md` | Verified citations: Roughgarden, Ethereum specs, Buterin, Samani, Pfeffer |
+| `failure_postmortems_2024.md` | Stream Finance/xUSD, Compound governance capture, leverage stablecoin patterns |
+| `staking_dynamics.md` | Issuance formulas, reflexivity loop, staking equilibrium model |
+| `governance_attacks.md` | Beanstalk, Tornado Cash, Build Finance; 22-item governance attack checklist |
+| `vetokens_and_emissions.md` | veCRV mechanics, Solidly failure, emission decay curves, bribe market dynamics |
+| `treasury_design.md` | Runway formula, diversification benchmarks, protocol-owned liquidity |
+| `fee_economics.md` | Fee capture ratio, revenue taxonomy, unit economics benchmarks |
+| `token_velocity.md` | MV=PQ framework, velocity trap, sink mechanism effectiveness |
+| `reference_benchmarks.md` | Live comparison data: BTC / ETH / UNI / CRV / GMX / stETH |
 
 ---
 
@@ -103,16 +142,18 @@ requirements.txt
 | Knowledge base — 15 domain files | ✅ Complete |
 | Schema, report template, slash commands | ✅ Complete |
 | Weakness scanner — 51 flags across 5 severities | ✅ Complete |
-| Completeness assessment — 6-question scorecard | ✅ Complete |
-| Simulation suite — cadCAD/Mesa scripts | 🔴 In progress |
-| Excel spreadsheet generator | 🔴 Pending |
-| Extended knowledge base — GameFi, NFT, behavioral, theoretical foundations | 🔴 Pending |
+| Completeness assessment | ✅ Complete |
+| Core simulation suite — supply, Monte Carlo, sensitivity, death spiral | ✅ Complete |
+| PDF report generation | ✅ Complete |
+| Extended simulation suite — staking, velocity, agent-based, governance | 🔧 In progress |
+| Excel financial model generator | 🔧 Planned |
+| Extended knowledge base — GameFi / NFT / theoretical foundations | 🔧 Planned |
 
 ---
 
 ## Stack
 
 ```
-Python: numpy, pandas, matplotlib, scipy, mesa, openpyxl, plotly, jinja2, pyyaml, seaborn
+Python: numpy, pandas, matplotlib, scipy, openpyxl, jinja2, weasyprint, pyyaml
 Agent:  Claude Code (claude-sonnet-4-6 or later)
 ```
