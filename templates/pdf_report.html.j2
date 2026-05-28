@@ -59,11 +59,12 @@
 .cover {
   page: cover;
   page-break-after: always;
-  background-color: #0f1629;
+  background-color: #ffffff;
   width: 210mm;
   min-height: 297mm;
   box-sizing: border-box;
   padding: 38mm 32mm 24mm 32mm;
+  border-top: 6pt solid #C9A447;
 }
 
 .cover-brand {
@@ -77,7 +78,7 @@
 }
 
 .cover-token-name {
-  color: #ffffff;
+  color: #0f1629;
   font-family: Arial, sans-serif;
   font-size: 28pt;
   font-weight: 700;
@@ -89,47 +90,35 @@
   color: #6b7280;
   font-family: Arial, sans-serif;
   font-size: 11pt;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  margin-bottom: 22mm;
+  margin-bottom: 40mm;
 }
 
-.cover-grade-circle {
-  display: inline-block;
-  width: 28mm;
-  height: 28mm;
-  line-height: 28mm;
-  border-radius: 50%;
-  background-color: {{ grade_color }};
-  text-align: center;
-  color: #ffffff;
-  font-family: Arial, sans-serif;
-  font-size: 24pt;
-  font-weight: 900;
+
+/* ─── Table of contents ───────────────────────────────────── */
+
+.toc-page {
+  page-break-after: always;
 }
 
-.cover-grade-label {
+.toc-item {
+  margin-bottom: 10pt;
+}
+
+.toc-link {
   display: block;
-  color: #4b5563;
-  font-family: Arial, sans-serif;
-  font-size: 8pt;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin-top: 4mm;
-  margin-bottom: 28mm;
+  text-decoration: none;
+  color: #0f1629;
+  font-size: 11pt;
+  font-weight: 600;
 }
 
-.cover-date {
-  color: #4b5563;
-  font-family: Arial, sans-serif;
-  font-size: 9.5pt;
-}
-
-.cover-confidential {
-  color: #374151;
-  font-family: Arial, sans-serif;
-  font-size: 8.5pt;
-  margin-top: 3mm;
+.toc-link::after {
+  content: leader('.') target-counter(attr(href url), page);
+  color: #9ca3af;
+  font-weight: 400;
+  font-size: 10pt;
 }
 
 
@@ -281,11 +270,13 @@ blockquote {
 <div class="cover">
   <div class="cover-brand">◆&nbsp;&nbsp;Auric Labs</div>
   <div class="cover-token-name">{{ token_name }}</div>
-  <div class="cover-subtitle">Token Economics Audit</div>
-  <div class="cover-grade-circle">{{ grade }}</div>
-  <span class="cover-grade-label">Audit Grade</span>
-  <div class="cover-date">{{ audit_date }}</div>
-  <div class="cover-confidential">Confidential</div>
+  <div class="cover-subtitle">Token Model Analysis &nbsp;({{ audit_date }})</div>
+</div>
+
+<!-- ▓▓▓ TABLE OF CONTENTS ▓▓▓ -->
+<div class="toc-page">
+  <h1>Contents</h1>
+  {{ toc_html }}
 </div>
 
 <!-- ▓▓▓ REPORT CONTENT ▓▓▓ -->

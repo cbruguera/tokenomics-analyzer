@@ -94,16 +94,31 @@ def style_findings(html):
     return html
 
 
+def build_toc(toc_tokens):
+    """Build ToC HTML from H2-level sections only."""
+    import html as html_lib
+    items = []
+    for t in toc_tokens:
+        if t['level'] == 2:
+            name = html_lib.unescape(t['name'])
+            items.append(
+                f'<div class="toc-item">'
+                f'<a class="toc-link" href="#{t["id"]}">{name}</a>'
+                f'</div>'
+            )
+    return '\n'.join(items)
+
+
 def main():
     if len(sys.argv) < 2:
         print("Usage: python templates/generate_pdf.py <token-name>")
         sys.exit(1)
 
-    token_slug  = sys.argv[1].lower().strip()
-    report_md   = AGENT_DIR / 'reports'  / f'{token_slug}_audit.md'
+    token_slug   = sys.argv[1].lower().strip()
+    report_md    = AGENT_DIR / 'reports'  / f'{token_slug}_audit.md'
     analysis_dir = AGENT_DIR / 'analysis' / token_slug
-    output_pdf  = AGENT_DIR / 'reports'  / f'{token_slug}_audit.pdf'
-    template    = SCRIPT_DIR / 'pdf_report.html.j2'
+    output_pdf   = AGENT_DIR / 'reports'  / f'{token_slug}_audit.pdf'
+    template     = SCRIPT_DIR / 'pdf_report.html.j2'
 
     if not report_md.exists():
         print(f"Error: {report_md} not found")
@@ -113,16 +128,21 @@ def main():
     from jinja2 import Template
     from weasyprint import HTML
 
-    text     = report_md.read_text(encoding='utf-8')
-    meta     = parse_metadata(text)
-    body_md  = strip_front_matter(text)
+    text    = report_md.read_text(encoding='utf-8')
+    meta    = parse_metadata(text)
+    body_md = strip_front_matter(text)
 
-    content_html = md_lib.markdown(body_md, extensions=['extra'])
+    md      = md_lib.Markdown(extensions=['extra', 'toc'])
+    content_html = md.convert(body_md)
+    toc_html     = build_toc(md.toc_tokens)
+
     if analysis_dir.exists():
         content_html = embed_images(content_html, analysis_dir)
     content_html = style_findings(content_html)
 
-    full_html = Template(template.read_text()).render(**meta, content=content_html)
+    full_html = Template(template.read_text()).render(
+        **meta, content=content_html, toc_html=toc_html
+    )
     HTML(string=full_html, base_url=str(AGENT_DIR)).write_pdf(str(output_pdf))
     print(f"PDF written: {output_pdf}")
 
